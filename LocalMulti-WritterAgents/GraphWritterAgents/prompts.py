@@ -1,3 +1,10 @@
+from langfuse import get_client
+
+from dotenv import load_dotenv
+load_dotenv()
+
+langfuse = get_client()
+
 prompt_manager = """
     You are an experienced orchestrator. Your task is to produce a high-quality article on a given topic.
 
@@ -66,4 +73,26 @@ prompt_critic = """
     7. Grammar and writing style.
 """
 
-prompt_struct = "Transform the response into a JSON schema."
+langfuse.create_prompt(
+    name="Prompt for manager agent",
+    prompt=prompt_manager,
+    labels=["mvp"]
+)
+
+langfuse.create_prompt(
+    name="Prompt for writter agent",
+    prompt=prompt_writter,
+    labels=["mvp"]
+)
+
+langfuse.create_prompt(
+    name="Prompt for researcher agent",
+    prompt=prompt_researcher,
+    labels=["mvp"]
+)
+
+langfuse.create_prompt(
+    name="Prompt for critic agent",
+    prompt=prompt_critic,
+    labels=["mvp"]
+)

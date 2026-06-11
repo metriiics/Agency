@@ -2,6 +2,7 @@ from fastapi import FastAPI
 import uvicorn
 from pydantic import BaseModel
 
+from SubAgent import store
 from agent import ask_agent
 
 app = FastAPI()
@@ -14,6 +15,7 @@ class GenerateResponse(BaseModel):
 
 @app.post("/generate", response_model=GenerateResponse)
 async def generate(question: GenerateRequest):
+    store.clear()
     response = await ask_agent(question.quest)
 
     return GenerateResponse(resp=response)
