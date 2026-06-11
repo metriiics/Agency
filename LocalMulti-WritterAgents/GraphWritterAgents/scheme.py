@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, TypedDict, Optional
 
 class Research(BaseModel):
     key_facts: List[str] = Field(description='7–10 key facts about the topic.')
@@ -16,3 +16,16 @@ class Article(BaseModel):
     introduction: str = Field(description='Introductory paragraph, 50–80 words.')
     body: str = Field(description='Main body, 200–250 words.')
     conclusion: str = Field(description='Conclusion, 40–60 words.')
+
+class State(TypedDict):
+    topic: str
+    max_iterations: int
+
+    research: Optional[Research]
+
+    article: Optional[Article]
+    iteration: int
+
+    approved: bool
+    score: int
+    feedback: str
